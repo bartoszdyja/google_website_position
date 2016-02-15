@@ -11,7 +11,7 @@ class Keyword < ActiveRecord::Base
   end
 
   def hit_google(website, keyword)
-    conn = Faraday.get("https://www.googleapis.com/customsearch/v1?q=#{keyword}&cx=#{Rails.application.secrets.cx}&key=#{Rails.application.secrets.secret_google_key}")
+    conn = Faraday.get("https://www.googleapis.com/customsearch/v1?q=#{keyword}&cx=#{ENV['secret_google_cx']}&key=#{ENV['secret_google_key']}")
     p conn.status
     if conn.status == 200
       response = JSON.parse(conn.body)['items']
